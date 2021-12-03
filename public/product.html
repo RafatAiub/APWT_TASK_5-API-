@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body onload="loadDoc()">
+    <h2>Products</h2>
+    <ul>
+        <li>id="name"</li>
+        <li>id="price"</li>
+        <li>id="category"</li>
+        <li>id="gallery"</li>
+        <li>id="description"</li>
+    </ul>
+    <img src="gallery" alt="" width="200px">
+    <script>
+        function loadDoc(){
+            const xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function(){
+                if(this.readyState==4 && this.status == 200){
+                    var obj_arr = JSON.parse(this.responseText);
+                    document.getElementsById("gallery").src = obj_arr[0].gallery;
+                    document.getElementsById("name").src = obj_arr[0].name;
+                    document.getElementsById("price").src = obj_arr[0].price;
+                    document.getElementsById("category").src = obj_arr[0].category;
+                    document.getElementsById("description").src = obj_arr[0].description;
+                }
+            };
+            xhttp.open("GET","http://127.0.0.1:8000/api/list");
+            xhttp.send();
+        }
+    </script>
+</body>
+</html>
